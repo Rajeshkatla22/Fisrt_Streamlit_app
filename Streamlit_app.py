@@ -19,11 +19,10 @@ streamlit.dataframe(my_fruit_list)
 fruits_selected = streamlit.multiselect("Pick Some Fruits:",list(my_fruit_list.index),['Avocado','Strawberries','Apple']) 
 fruits_to_display = my_fruit_list.loc[fruits_selected]
 streamlit.dataframe(fruits_to_display)
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + "kiwi")
 
 streamlit.header("Fruityvice Fruit Advice!")
 try:
-# fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + "kiwi")
-
 fruit_choice = streamlit.text_input('What fruit would you like information about?')
 if not fruit_choice:
   streamlit.error("Please select a fruit to get information.")
@@ -31,6 +30,7 @@ if not fruit_choice:
 fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice)
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 streamlit.dataframe(fruityvice_normalized)
+
 excepy UELError as e:
   streamlit.error()
 
